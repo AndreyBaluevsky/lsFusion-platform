@@ -39,7 +39,7 @@
                                     <arg value="${assemble.jar}" />
                                 </exec>
 
-                                <signjar jar="${assemble.jar}" keystore="${keystore.file}" alias="${keystore.alias}" storepass="${keystore.pass}" />
+                                <!--signjar jar="${assemble.jar}" keystore="${keystore.file}" alias="${keystore.alias}" storepass="${keystore.pass}" /-->
 
                                 <echo message="Pack200-ing jar ${assemble.jar}" />
                                 <exec executable="pack200">

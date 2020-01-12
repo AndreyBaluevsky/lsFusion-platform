@@ -754,7 +754,7 @@ public class PropertyFact {
     }
 
     public static <L extends PropertyInterface> ActionMapImplement<?, L> createEmptyAction() {
-        return createListAction(SetFact.EMPTY(), ListFact.EMPTY());
+        return (ActionMapImplement<?, L>) createListAction(SetFact.EMPTY(), ListFact.EMPTY());
     }
     
     public static <L extends PropertyInterface> ActionMapImplement<?, L> createListAction(ImSet<L> innerInterfaces, ImList<ActionMapImplement<?, L>> actions) {

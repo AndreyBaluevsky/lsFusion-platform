@@ -693,7 +693,7 @@ public class CompiledQuery<K,V> extends ImmutableObject {
             private MSet<I> mNeedValues = SetFact.mSet();
 
             public ImRevMap<String, I> queries;
-            protected ImMap<I,E> exprs; // нужен для innerWhere и классовой информации, query транслированный -> в общее выражение
+            public ImMap<I,E> exprs; // нужен для innerWhere и классовой информации, query транслированный -> в общее выражение
             protected ImSet<I> needValues;
             public void finalIm() {
                 queries = mQueries.immutableRev().reverse();
@@ -729,7 +729,7 @@ public class CompiledQuery<K,V> extends ImmutableObject {
 
             protected SQLQuery getSQLQuery(String select, Cost baseCost, ImMap<String, SQLQuery> subQueries, final MStaticExecuteEnvironment mSubEnv, final Where innerWhere, boolean recursionFunction) {
                 ImMap<String, Type> keyTypes = group.mapValues(value -> value.getType(innerWhere));
-                ImMap<String, Type> propertyTypes = queries.mapValues(value -> exprs.get(value).getType());
+                ImMap <String, Type> propertyTypes = queries.mapValues(value -> exprs.get(value).getType());
                 if(select == null) {
                     Function<Type, String> nullGetter = value -> value.getCast(SQLSyntax.NULL, syntax, mSubEnv);
                     ImMap<String, String> keySelect = keyTypes.mapValues(nullGetter);
