@@ -118,7 +118,7 @@ public class MakeUnzipFileAction extends InternalAction {
 
             byte[] buffer = new byte[1024];
             Set<File> dirList = new HashSet<>();
-            File outputDirectory = new File(inputFile.getParent() + "/" + getFileNameWithoutExt(inputFile));
+            File outputDirectory = new File(inputFile.getParent(), getFileNameWithoutExt(inputFile));
             if(inputFile.exists() && (outputDirectory.exists() || outputDirectory.mkdir())) {
                 dirList.add(outputDirectory);
                 ZipInputStream inputStream = new ZipInputStream(new FileInputStream(inputFile), Charset.forName("cp866"));
@@ -126,13 +126,17 @@ public class MakeUnzipFileAction extends InternalAction {
                 ZipEntry ze = inputStream.getNextEntry();
                 while (ze != null) {
                     if(ze.isDirectory()) {
-                        File dir = new File(outputDirectory.getPath() + "/" + ze.getName());
+                        File dir = new File(outputDirectory.getPath(), ze.getName());
                         dir.mkdirs();
                         dirList.add(dir);
                     }
                     else {
                         String fileName = ze.getName();
-                        outputFile = new File(outputDirectory.getPath() + "/" + fileName);
+                      final File zipEntryFile = new File(outputDirectory.getPath(), fileName);
+                      if (!zipEntryFile.toPath().normalize().startsWith(outputDirectory.getPath())) {
+                        throw new IOException("Bad zip entry");
+                      }
+                      outputFile = zipEntryFile;
                         FileOutputStream outputStream = new FileOutputStream(outputFile);
                         int len;
                         while ((len = inputStream.read(buffer)) > 0) {
