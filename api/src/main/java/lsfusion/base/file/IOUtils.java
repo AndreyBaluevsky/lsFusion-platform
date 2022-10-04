@@ -2,6 +2,7 @@ package lsfusion.base.file;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.file.Files;
 
 public class IOUtils {
     public static final int BUFFER_SIZE = 16384;
@@ -97,15 +98,7 @@ public class IOUtils {
     }
 
     public static File createTempDirectory(String prefix) throws IOException {
-        final File tempFile = File.createTempFile(prefix, Long.toString(System.nanoTime()));
-
-        if (!tempFile.delete()) {
-            throw new IOException("Could not delete temp file: " + tempFile.getAbsolutePath());
-        }
-
-        if (!tempFile.mkdir()) {
-            throw new IOException("Could not create temp directory: " + tempFile.getAbsolutePath());
-        }
+        final File tempFile = Files.createTempDirectory(prefix + Long.toString(System.nanoTime())).toFile();
 
         return tempFile;
     }
