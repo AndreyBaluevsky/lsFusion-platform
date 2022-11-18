@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -61,7 +62,7 @@ public class MakeUnzipFileAction extends InternalAction {
         File inputFile = null;
         File outputFile = null;
         try {
-            inputFile = File.createTempFile("email", ".rar");
+            inputFile = Files.createTempFile("email", ".rar").toFile();
             fileBytes.write(inputFile);
 
             List<File> dirList = new ArrayList<>();
@@ -113,7 +114,7 @@ public class MakeUnzipFileAction extends InternalAction {
         File inputFile = null;
         File outputFile = null;
         try {
-            inputFile = File.createTempFile("email", ".zip");
+            inputFile = Files.createTempFile("email", ".zip").toFile();
             fileBytes.write(inputFile);
 
             byte[] buffer = new byte[1024];

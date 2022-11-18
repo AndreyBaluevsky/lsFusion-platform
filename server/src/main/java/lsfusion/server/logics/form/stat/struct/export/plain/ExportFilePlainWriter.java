@@ -6,6 +6,7 @@ import lsfusion.server.data.type.Type;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public abstract class ExportFilePlainWriter extends ExportPlainWriter {
     
@@ -13,7 +14,7 @@ public abstract class ExportFilePlainWriter extends ExportPlainWriter {
 
     public ExportFilePlainWriter(ImOrderMap<String, Type> fieldTypes) throws IOException {
         super(fieldTypes);
-        file = File.createTempFile("file", ".exp");
+        file = Files.createTempFile("file", ".exp").toFile();
     }
 
     public RawFileData release() throws IOException {

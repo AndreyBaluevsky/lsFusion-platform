@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -2027,7 +2028,7 @@ public class BaseUtils {
     }
 
     public static void openFile(RawFileData data, String name, String extension) throws IOException {
-        File file = name != null ? new File(System.getProperty("java.io.tmpdir") + "/" + name + "." + extension) : File.createTempFile("lsf", "." + extension);
+        File file = name != null ? new File(System.getProperty("java.io.tmpdir") + "/" + name + "." + extension) : Files.createTempFile("lsf", "." + extension).toFile();
         try (FileOutputStream f = new FileOutputStream(file)) {
             data.write(f);
         }

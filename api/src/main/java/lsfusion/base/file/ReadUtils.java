@@ -18,6 +18,7 @@ import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +40,7 @@ public abstract class ReadUtils {
         
         File localFile = null;
         if(!filePath.type.equals("file"))
-            localFile = File.createTempFile("downloaded", ".tmp");
+            localFile = Files.createTempFile("downloaded", ".tmp").toFile();
 
         try {
             File file = localFile;

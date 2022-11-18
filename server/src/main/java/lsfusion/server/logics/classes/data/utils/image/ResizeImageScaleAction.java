@@ -13,6 +13,7 @@ import net.coobird.thumbnailator.Thumbnails;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Iterator;
 
@@ -37,7 +38,7 @@ public class ResizeImageScaleAction extends InternalAction {
 
             File outputFile = null;
             try {
-                outputFile = File.createTempFile("resized", ".jpg");
+                outputFile = Files.createTempFile("resized", ".jpg").toFile();
                 if(scale != 0) {
                     Thumbnails.of(inputFile.getInputStream()).scale((double) 1 / scale).toFile(outputFile);
                     findProperty("resizedImage[]").change(new RawFileData(outputFile), context);

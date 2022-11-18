@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
 import java.util.*;
 
 import static java.lang.Math.max;
@@ -305,7 +306,7 @@ public class SwingUtils {
             Icon icon = null;
             File file = null;
             try {
-                file = File.createTempFile("icon", "." + extension);
+                file = Files.createTempFile("icon", "." + extension).toFile();
                 FileSystemView view = FileSystemView.getFileSystemView();
                 icon = view.getSystemIcon(file);
                 icons.put(extension, icon);

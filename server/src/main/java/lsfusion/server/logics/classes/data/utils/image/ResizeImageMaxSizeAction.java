@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Iterator;
 
@@ -45,7 +46,7 @@ public class ResizeImageMaxSizeAction extends InternalAction {
 
             File outputFile = null;
             try {
-                outputFile = File.createTempFile("resized", ".jpg");
+                outputFile = Files.createTempFile("resized", ".jpg").toFile();
                 if(scale != 0) {
                     Thumbnails.of(inputFile.getInputStream()).scale(scale, scale).toFile(outputFile);
                     findProperty("resizedImage[]").change(new RawFileData(outputFile), context);

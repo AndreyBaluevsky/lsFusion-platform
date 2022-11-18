@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -365,7 +366,7 @@ public class SystemUtils {
     }
 
     private static File getFile(File oldFile, String resource, String path, Class<?> cls, boolean overwrite) throws IOException {
-        File newFile = File.createTempFile("temp", ".tmp");
+        File newFile = Files.createTempFile("temp", ".tmp").toFile();
         InputStream in = cls.getResourceAsStream(path + resource);
         if (in == null) {
             if (overwrite || !oldFile.exists())
