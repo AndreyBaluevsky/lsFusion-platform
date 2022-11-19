@@ -51,6 +51,7 @@ import java.io.IOException;
 import java.lang.Boolean;
 import java.lang.Number;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -765,7 +766,7 @@ public abstract class GroupingDialog extends JDialog {
     }
 
     private File exportToExcel(boolean isPivot) throws IOException, WriteException {
-        File file = File.createTempFile("tableContents", ".xls");
+        File file = Files.createTempFile("tableContents", ".xls").toFile();
         WorkbookSettings ws = new WorkbookSettings();
         ws.setGCDisabled(true);
         WritableWorkbook workbook = jxl.Workbook.createWorkbook(file, ws);
@@ -791,7 +792,7 @@ public abstract class GroupingDialog extends JDialog {
 
     private File exportToXLSX(boolean isPivot) throws IOException {
         cellStyleMap = new HashMap<>();
-        File file = File.createTempFile("tableContents", ".xlsx");
+        File file = Files.createTempFile("tableContents", ".xlsx").toFile();
         WorkbookSettings ws = new WorkbookSettings();
         ws.setGCDisabled(true);
         try(XSSFWorkbook workbook = new XSSFWorkbook()) {

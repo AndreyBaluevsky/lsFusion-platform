@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.EventObject;
@@ -555,7 +556,7 @@ public abstract class SwingClientActionDispatcher implements ClientActionDispatc
             text += stackTraceToString(stackTrace) + "\n";
         File file = null;
         try {
-            file = File.createTempFile("threaddump", ".txt");
+            file = Files.createTempFile("threaddump", ".txt").toFile();
             FileUtils.writeStringToFile(file, text);
             return new RawFileData(file);
         } catch (IOException e) {
@@ -593,7 +594,7 @@ public abstract class SwingClientActionDispatcher implements ClientActionDispatc
         File file = null;
         try {
             //support only .wav files
-            file = File.createTempFile("beep", getExtension(rawFile.getBytes()));
+            file = Files.createTempFile("beep", getExtension(rawFile.getBytes())).toFile();
             rawFile.write(file);
 
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file.toURI().toURL());

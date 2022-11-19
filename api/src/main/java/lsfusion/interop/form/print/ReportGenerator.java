@@ -23,6 +23,7 @@ import javax.print.attribute.standard.MediaTray;
 import javax.print.attribute.standard.Sides;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -759,7 +760,7 @@ public class ReportGenerator {
 
     public static File exportToFile(ReportGenerationData generationData, FormPrintType type, String sheetName, String password) throws ClassNotFoundException, IOException, JRException {
         String extension = type.getExtension();
-        File tempFile = File.createTempFile("lsf", "." + extension);
+        File tempFile = Files.createTempFile("lsf", "." + extension).toFile();
 
         ReportGenerator report = new ReportGenerator(generationData);
 

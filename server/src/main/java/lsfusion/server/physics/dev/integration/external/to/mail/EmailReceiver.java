@@ -37,6 +37,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -355,7 +356,7 @@ public class EmailReceiver {
                 String fileName = decodeFileName(bp.getFileName());
                 
                 InputStream is = bp.getInputStream();
-                File f = File.createTempFile("attachment", "");
+                File f = Files.createTempFile("attachment", "").toFile();
                 try {
                     FileOutputStream fos = new FileOutputStream(f);
                     byte[] buf = new byte[4096];
@@ -455,7 +456,7 @@ public class EmailReceiver {
         File inputFile = null;
         File outputFile = null;
         try {
-            inputFile = File.createTempFile("email", ".rar");
+            inputFile = Files.createTempFile("email", ".rar").toFile();
             rawFile.write(inputFile);
 
             List<File> dirList = new ArrayList<>();
@@ -507,7 +508,7 @@ public class EmailReceiver {
         File inputFile = null;
         File outputFile = null;
         try {
-            inputFile = File.createTempFile("email", ".zip");
+            inputFile = Files.createTempFile("email", ".zip").toFile();
             try (FileOutputStream stream = new FileOutputStream(inputFile)) {
                 rawFile.write(stream);
             }

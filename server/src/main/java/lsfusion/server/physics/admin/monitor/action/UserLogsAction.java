@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -53,7 +54,7 @@ public class UserLogsAction extends InternalAction {
     }
 
     private File makeZipFile(Map<String, RawFileData> logFiles) throws IOException {
-        File zipFile = File.createTempFile("zip", ".zip");
+        File zipFile = Files.createTempFile("zip", ".zip").toFile();
         FileOutputStream fos = new FileOutputStream(zipFile);
         try (ZipOutputStream zos = new ZipOutputStream(fos)) {
             for (Map.Entry<String, RawFileData> logFile : logFiles.entrySet()) {

@@ -17,6 +17,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class PrintFileClientAction extends ExecuteClientAction {
     private RawFileData fileData;
@@ -52,7 +53,7 @@ public class PrintFileClientAction extends ExecuteClientAction {
                 File file = null;
                 try {
                     if (fileData != null) {
-                        file = File.createTempFile("print", ".pdf");
+                        file = Files.createTempFile("print", ".pdf").toFile();
                         fileData.write(file);
                     } else {
                         file = new File(filePath);

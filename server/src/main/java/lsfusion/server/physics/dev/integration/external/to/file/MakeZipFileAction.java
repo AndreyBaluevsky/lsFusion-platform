@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -46,7 +47,7 @@ public class MakeZipFileAction extends InternalAction {
 
                 File zipFile = null;
                 try {
-                    zipFile = File.createTempFile("zip", ".zip");
+                    zipFile = Files.createTempFile("zip", ".zip").toFile();
                     FileOutputStream fos = new FileOutputStream(zipFile);
                     try (ZipOutputStream zos = new ZipOutputStream(fos)) {
 

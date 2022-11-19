@@ -13,6 +13,7 @@ import net.sourceforge.tess4j.TesseractException;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Iterator;
 
 public class ImageToStringAction extends InternalAction {
@@ -49,7 +50,7 @@ public class ImageToStringAction extends InternalAction {
                 String tessDataPath = (String) findProperty("tessDatPath[]").read(context);
                 if (tessDataPath != null) {
 
-                    tmpFile = File.createTempFile("opencv", "." + extension);
+                    tmpFile = Files.createTempFile("opencv", "." + extension).toFile();
 
                     FileUtils.writeByteArrayToFile(tmpFile, imageFile.getBytes());
 

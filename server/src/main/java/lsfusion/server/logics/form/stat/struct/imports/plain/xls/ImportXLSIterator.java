@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ImportXLSIterator extends ImportMatrixIterator {
         int minSize = Settings.get().getMinSizeForExcelStreamingReader();
         useStreamingReader = xlsx && minSize >= 0 && file.getLength() >= minSize;
         if(useStreamingReader) {
-            wbFile = File.createTempFile("import", "xlsx");
+            wbFile = Files.createTempFile("import", "xlsx").toFile();
             file.write(wbFile);
             wb = StreamingReader.builder().rowCacheSize(100)    // number of rows to keep in memory (defaults to 10)
                     .bufferSize(4096)     // buffer size to use when reading InputStream to file (defaults to 1024)

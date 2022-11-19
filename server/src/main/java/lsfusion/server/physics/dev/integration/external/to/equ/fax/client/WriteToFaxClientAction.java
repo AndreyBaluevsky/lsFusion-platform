@@ -10,6 +10,7 @@ import org.fax4j.FaxJobStatus;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 
 public class WriteToFaxClientAction implements ClientAction {
@@ -32,7 +33,7 @@ public class WriteToFaxClientAction implements ClientAction {
 
             File file = null;
             try {
-                file = File.createTempFile("fax", ".txt");
+                file = Files.createTempFile("fax", ".txt").toFile();
                 PrintWriter writer = new PrintWriter(file);
                 writer.println(text);
                 writer.close();
